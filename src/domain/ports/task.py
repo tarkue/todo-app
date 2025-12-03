@@ -16,6 +16,9 @@ class TaskServicePort(abc.ABC):
     async def get_by_id(self, id: UUID) -> Task: ...
 
     @abc.abstractmethod
+    async def create(self, object: Task) -> Task: ...
+
+    @abc.abstractmethod
     async def update(self, object: Task) -> Task: ...
 
     @abc.abstractmethod

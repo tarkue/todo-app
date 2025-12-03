@@ -1,5 +1,5 @@
 import abc
-from typing import Iterable
+from typing import Iterable, List
 from uuid import UUID
 
 from src.domain.entities.task import Task
@@ -11,6 +11,12 @@ class TaskRepository(abc.ABC):
 
     @abc.abstractmethod
     async def get_by_id(self, id: UUID) -> Task: ...
+
+    @abc.abstractmethod
+    async def create(self, object: Task) -> Task: ...
+
+    @abc.abstractmethod
+    async def create_many(self, object: List[Task]) -> Task: ...
 
     @abc.abstractmethod
     async def update(self, object: Task) -> Task: ...
