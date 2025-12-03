@@ -1,6 +1,7 @@
-from _default import CONFIG_DEFAULT
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
+
+from ._default import CONFIG_DEFAULT
 
 
 class Database(BaseSettings):

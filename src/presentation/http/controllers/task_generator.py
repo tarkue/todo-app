@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends
 from typing_extensions import Annotated
 
-from domain.services.task import TaskService
+from src.application.task_service import TaskService
+from src.infrastructure.task.task_repository import SQLTaskRepository
 
 router = APIRouter(
     prefix="/task-generator",
@@ -9,5 +10,5 @@ router = APIRouter(
 )
 
 @router.post("/run")
-def run(task_service: Annotated[TaskService, Depends]):
+def run(task_service: Annotated[TaskService, Depends(SQLTaskRepository)]):
     return task_service.generate()

@@ -1,5 +1,6 @@
-from _default import CONFIG_DEFAULT
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from ._default import CONFIG_DEFAULT
 
 
 class App(BaseSettings):

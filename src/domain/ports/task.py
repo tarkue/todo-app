@@ -5,7 +5,7 @@ from uuid import UUID
 from src.domain.entities.task import Task
 
 
-class TaskService(abc.ABC):
+class TaskServicePort(abc.ABC):
     @abc.abstractmethod
     async def generate(self) -> Task: ...
 

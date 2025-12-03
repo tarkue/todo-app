@@ -1,6 +1,6 @@
 from uvicorn import run
 
-from infrastructure.config import env
+from src.infrastructure.config import env
 from src.presentation.app import app
 
 if __name__ == "__main__":
