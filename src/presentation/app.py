@@ -2,10 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.infrastructure.config import env
+from src.infrastructure.database.lifespan import lifespan
 from src.presentation.http.router import http_router
 from src.presentation.websocket.route import websocket_router
 
 app = FastAPI(
+    lifespan=lifespan,
     title=env.app.title,
     description=env.app.description,
     version=env.app.version,

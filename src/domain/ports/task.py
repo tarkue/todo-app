@@ -7,6 +7,9 @@ from src.domain.entities.task import Task
 
 class TaskServicePort(abc.ABC):
     @abc.abstractmethod
+    async def subscribe(self): ...
+    
+    @abc.abstractmethod
     async def generate(self) -> Task: ...
 
     @abc.abstractmethod

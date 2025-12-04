@@ -15,4 +15,4 @@ class Task:
   id: UUID
   title: str
   description: Optional[str]
-  status: TaskStatus
+  status: TaskStatus = TaskStatus.IN_PROGRESS

@@ -1,13 +1,17 @@
 import abc
-from typing import AsyncIterator, Generic, TypeVar
+from typing import Generic, TypeVar
 
 from src.domain.entities.event import Event
+from src.domain.ports.subscriber import Subscriber
 
 T = TypeVar("T")
 
 class RealTimeServicePort(abc.ABC, Generic[T]):
     @abc.abstractmethod
-    async def subscribe(self) -> AsyncIterator[Event[T]]: ...
+    def subscribe(self) -> Subscriber[T]: ...
 
     @abc.abstractmethod
-    async def emit(self, event: Event[T]) -> Event[T]: ...
+    def unsubscribe(self, subscriber: Subscriber[T]): ...
+
+    @abc.abstractmethod
+    async def publish(self, event: Event[T]) -> None: ...
