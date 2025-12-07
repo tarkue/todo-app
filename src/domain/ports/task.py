@@ -2,7 +2,7 @@ import abc
 from typing import Iterable
 from uuid import UUID
 
-from src.domain.entities.task import Task
+from src.domain.entities.task import CreateTask, Task
 
 
 class TaskServicePort(abc.ABC):
@@ -19,10 +19,10 @@ class TaskServicePort(abc.ABC):
     async def get_by_id(self, id: UUID) -> Task: ...
 
     @abc.abstractmethod
-    async def create(self, object: Task) -> Task: ...
+    async def create(self, object: CreateTask) -> Task: ...
 
     @abc.abstractmethod
-    async def update(self, object: Task) -> Task: ...
+    async def update(self, id: UUID, object: Task) -> Task: ...
 
     @abc.abstractmethod
     async def delete(self, id: UUID) -> Task: ...

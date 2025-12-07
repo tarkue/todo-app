@@ -1,4 +1,4 @@
-from typing import Dict, Type, TypeVar
+from typing import Dict, List, Type, TypeVar
 from uuid import UUID, uuid4
 
 from sqlalchemy import ColumnExpressionArgument, delete, select, update
@@ -48,13 +48,10 @@ class TableModel(SQLModel):
     @classmethod
     async def _get_all(
         cls: Type[_T]
-    ) -> _T:
+    ) -> List[_T]:
         query = select(cls)
-        executed = (await db.execute(query)).first()
-        if executed is not None:
-            return executed[0]
-
-        return None    
+        result = await db.execute(query)
+        return list(result.scalars().all())    
 
     @classmethod
     async def _update(

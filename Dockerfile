@@ -12,4 +12,4 @@ RUN uv sync --locked
 # Copy the rest of the application
 COPY ./ /backend/
 
-CMD ["python", "main.py"]
+CMD ["uv", "run", "python", "main.py"]

@@ -27,8 +27,8 @@ class TaskModel(TableModel, Task, table=True):
         )
 
     @staticmethod
-    async def create(data: dict):
-        return await __class__._create(data)
+    async def create(**data: dict):
+        return await __class__._create(**data)
 
     @staticmethod
     async def delete(id: UUID):

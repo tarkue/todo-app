@@ -40,10 +40,11 @@ async def create(
 
 @router.patch("/{id}", status_code=status.HTTP_200_OK, description="Частично обновляет задачу")
 async def update(
+    id: UUID,
     dto: UpdateTaskRequestDTO, 
     task_service: Annotated[TaskService, Depends(get_task_service)]
 ) -> TaskResponseDTO:
-    return await task_service.update(dto)
+    return await task_service.update(id, dto.model_dump())
 
 
 @router.delete("/{id}", status_code=status.HTTP_200_OK, description="Удаляет задачу без возможности восстановления")

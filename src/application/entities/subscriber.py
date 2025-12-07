@@ -8,7 +8,7 @@ from src.domain.entities.task import Task
 class TaskSubscriber:
     def __init__(self) -> None:
         self.id = uuid4()
-        self.__queue = Queue[Event[Task]]()
+        self.__queue: Queue = Queue()
 
     async def receive_event(self, event: Event[Task]):
         await self.__queue.put(event)
@@ -18,10 +18,9 @@ class TaskSubscriber:
             return self.id == value
         return self.id == self.id
 
-    async def __iter__(self):
-        while True:
-            if self.__queue.empty():
-                await sleep(1)
-            else:
-                event = await self.__queue.get()
-                yield event
+    def __aiter__(self):
+        return self
+
+    async def __anext__(self):
+        event = await self.__queue.get()
+        return event

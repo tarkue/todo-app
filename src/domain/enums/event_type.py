@@ -3,5 +3,5 @@ from enum import Enum
 
 class EventType(Enum):
   CREATE = "create"
-  UPDATE = "delete"
+  UPDATE = "update"
   DELETE = "delete"
