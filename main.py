@@ -12,7 +12,7 @@ def background_task():
 
 if __name__ == "__main__":
     scheduler = BackgroundScheduler()
-    scheduler.add_job(background_task, "interval", minutes =env.background_task.interval_in_minutes)
+    scheduler.add_job(background_task, "interval", minutes=env.background_task.interval_in_minutes)
     scheduler.start()
     run(
         app, 
