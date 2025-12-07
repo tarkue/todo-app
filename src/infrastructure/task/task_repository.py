@@ -2,7 +2,6 @@ from typing import Iterable, List
 from uuid import UUID
 
 from fastapi import HTTPException, status
-from sqlmodel import Session, desc
 
 from src.domain.entities.task import CreateTask, Task
 from src.domain.helpers.singleton_meta import SingletonABCMeta
@@ -23,6 +22,7 @@ class SQLTaskRepository(TaskRepository, metaclass=SingletonABCMeta):
             ) for model in models
         ]
 
+
     async def get_by_id(self, id: UUID) -> Task: 
         if not await TaskModel.exist_by_id(id):
             raise HTTPException(
@@ -31,6 +31,7 @@ class SQLTaskRepository(TaskRepository, metaclass=SingletonABCMeta):
             )
 
         return await TaskModel.find_by_id(id)
+
 
     async def update(self, id: UUID, data: Task) -> Task: 
         if not await TaskModel.exist_by_id(id):
@@ -50,19 +51,24 @@ class SQLTaskRepository(TaskRepository, metaclass=SingletonABCMeta):
         await TaskModel.update(id, values)
         return await TaskModel.find_by_id(id)
 
+
     async def create(self, data: CreateTask) -> Task: 
         return await TaskModel.create(title=data.title, description=data.description)
 
+
     async def create_many(self, objects: List[CreateTask]):
-        s = Session()
         tasks = [
             TaskModel(
                 title=data.title,
                 description=data.description,
             ) for data in objects
         ]
-        s.bulk_save_objects(tasks)
+        
+        db.add_all(tasks)
         await db.commit_rollback()
+
+        return tasks
+
 
     async def delete(self, id: UUID) -> Task: 
         task = await TaskModel.find_by_id(id)

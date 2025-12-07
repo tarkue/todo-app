@@ -31,7 +31,7 @@ class AsyncDatabaseSession(AsyncSession):
     async def create_all(self):
         async with self.engine.begin() as conn:
             await conn.run_sync(SQLModel.metadata.create_all)
-    
+
     
     async def commit_rollback(self):
         try:

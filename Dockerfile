@@ -1,15 +1,14 @@
-FROM python:3.9
+FROM python:3.9-slim
+
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /backend
 
-# Copy dependency files first for better caching
 COPY pyproject.toml uv.lock ./
 
-# Install dependencies
 RUN uv sync --locked
 
-# Copy the rest of the application
-COPY ./ /backend/
+COPY ./src ./src
+COPY ./main.py ./
 
 CMD ["uv", "run", "python", "main.py"]

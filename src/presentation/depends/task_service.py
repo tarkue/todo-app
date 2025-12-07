@@ -11,10 +11,8 @@ def get_task_repository() -> SQLTaskRepository:
     return SQLTaskRepository()
 
 
-def get_external_service(
-    task_repository: Annotated[SQLTaskRepository, Depends(get_task_repository)],
-) -> ExternalService:
-    return ExternalService(task_repository=task_repository)
+def get_external_service() -> ExternalService:
+    return ExternalService()
 
 
 def get_real_time_service() -> RealTimeTaskService:
