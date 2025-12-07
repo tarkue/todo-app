@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 from src.application.entities.subscriber import TaskSubscriber
 from src.domain.entities.event import Event
@@ -7,7 +7,7 @@ from src.domain.helpers.singleton_meta import SingletonABCMeta
 from src.domain.ports.real_time import RealTimeServicePort
 
 
-class RealTimeTaskService(RealTimeServicePort[Task], metaclass=SingletonABCMeta):
+class RealTimeTaskService(RealTimeServicePort[Union[Task, List[Task]]], metaclass=SingletonABCMeta):
     def __init__(self) -> None:
         self.__subscribers: List[TaskSubscriber] = []
 

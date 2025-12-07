@@ -41,7 +41,10 @@ class TaskService(TaskServicePort):
     async def generate(self) -> Task: 
         async def background_task():
             tasks = await self.__external.get_external_tasks()
-            await self.__repository.create_many(tasks)
+            result = await self.__repository.create_many(tasks)
+
+            if self.__real_time_service:
+                await self.__real_time_service.publish(Event(EventType.CREATE_MANY, result))
 
         self.__background_tasks.add_task(background_task)
 
